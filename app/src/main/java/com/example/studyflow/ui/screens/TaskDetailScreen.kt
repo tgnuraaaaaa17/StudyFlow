@@ -27,6 +27,7 @@ import com.example.studyflow.R
 import com.example.studyflow.data.Task
 import com.example.studyflow.ui.theme.Spacing
 import android.content.res.Configuration
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.studyflow.data.sampleTasks
 import com.example.studyflow.ui.theme.StudyFlowTheme
@@ -56,9 +57,10 @@ fun TaskDetailScreen(
             verticalArrangement = Arrangement.spacedBy(Spacing.md)
         ) {
             Image(
-                painter = painterResource(R.drawable.ic_launcher_foreground),
+                painter = painterResource(R.drawable.studyflow_banner),
                 contentDescription = "Illustration for ${task.title}",
-                modifier = Modifier.fillMaxWidth().aspectRatio(16f / 9f)
+                modifier = Modifier.fillMaxWidth().aspectRatio(16f / 9f),
+                contentScale = ContentScale.Crop
             )
             Text(
                 text = task.title,
