@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -52,7 +53,12 @@ fun HomeScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("StudyFlow") },
-                actions = { TextButton(onClick = onSeeAllClick) { Text("All") } }
+                actions = {
+                    TextButton(
+                        onClick = onSeeAllClick,
+                        modifier = Modifier.heightIn(min = Spacing.touchTarget)
+                    ) { Text("All") }
+                }
             )
         },
         floatingActionButton = {
