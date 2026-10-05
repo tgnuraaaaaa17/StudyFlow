@@ -26,6 +26,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.example.studyflow.R
 import com.example.studyflow.data.Task
 import com.example.studyflow.ui.theme.Spacing
+import android.content.res.Configuration
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.studyflow.data.sampleTasks
+import com.example.studyflow.ui.theme.StudyFlowTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,4 +85,16 @@ fun TaskDetailScreen(
             }
         }
     }
+
+}
+@Preview(showBackground = true)
+@Composable
+private fun TaskDetailScreenPreview() {
+    StudyFlowTheme { TaskDetailScreen(task = sampleTasks[0], onBack = {}) }
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun TaskDetailScreenDarkPreview() {
+    StudyFlowTheme { TaskDetailScreen(task = sampleTasks[0], onBack = {}) }
 }

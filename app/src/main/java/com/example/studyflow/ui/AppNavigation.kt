@@ -14,6 +14,7 @@ import com.example.studyflow.data.sampleTasks
 import com.example.studyflow.ui.screens.AddTaskScreen
 import com.example.studyflow.ui.screens.HomeScreen
 import com.example.studyflow.ui.screens.TaskDetailScreen
+import com.example.studyflow.ui.screens.TaskListScreen
 
 @Composable
 fun AppNavigation() {
@@ -25,7 +26,15 @@ fun AppNavigation() {
             HomeScreen(
                 tasks = tasks,
                 onTaskClick = { id -> navController.navigate("detail/$id") },
-                onAddClick = { navController.navigate("add") }
+                onAddClick = { navController.navigate("add") },
+                onSeeAllClick = { navController.navigate("list") }
+            )
+        }
+        composable("list") {
+            TaskListScreen(
+                tasks = tasks,
+                onTaskClick = { id -> navController.navigate("detail/$id") },
+                onBack = { navController.popBackStack() }
             )
         }
         composable(
