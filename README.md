@@ -1,6 +1,6 @@
-# StudyFlow
+# Deadliner
 
-StudyFlow is a study task and deadline tracker for university and college students. It keeps subjects and assignments with deadlines in one place, so students can see what is coming up and mark tasks as done.
+Deadliner is a study task and deadline tracker for university and college students. It keeps subjects and assignments with deadlines in one place, so students can see what is coming up and mark tasks as done.
 
 This project is SIS 3: building the screens of an app with Jetpack Compose (layout and styling). Data is kept in memory (a Kotlin `data class` and a list); saving to disk is out of scope for this assignment.
 
@@ -15,7 +15,7 @@ This project is SIS 3: building the screens of an app with Jetpack Compose (layo
 
 ## Sketch vs. final app
 
-Sketches with labeled blocks (Scaffold, TopAppBar, Column, Row, LazyRow, LazyColumn, Card) are in [`design/StudyFlow.png`](design/StudyFlow.png). They were the first commit of the repository.
+Sketches with labeled blocks (Scaffold, TopAppBar, Column, Row, LazyRow, LazyColumn, Card) are in [`design/Deadliner.png`](design/Deadliner.png). They were the first commit of the repository.
 
 What changed between the sketch and the app:
 
@@ -37,7 +37,7 @@ What changed between the sketch and the app:
 ## Project structure
 
 ```
-app/src/main/java/com/example/studyflow/
+app/src/main/java/com/example/deadliner/
 ├── data/            Task data class and sample data
 ├── ui/
 │   ├── components/  TaskCard, SubjectChip, SectionHeader

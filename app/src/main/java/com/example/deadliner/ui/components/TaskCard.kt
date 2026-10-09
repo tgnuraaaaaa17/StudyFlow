@@ -1,4 +1,4 @@
-package com.example.studyflow.ui.components
+package com.example.deadliner.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -16,10 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.studyflow.data.Task
-import com.example.studyflow.data.sampleTasks
-import com.example.studyflow.ui.theme.Spacing
-import com.example.studyflow.ui.theme.StudyFlowTheme
+import com.example.deadliner.data.Task
+import com.example.deadliner.data.sampleTasks
+import com.example.deadliner.ui.theme.Spacing
+import com.example.deadliner.ui.theme.DeadlinerTheme
 
 @Composable
 fun TaskCard(
@@ -57,11 +57,11 @@ fun TaskCard(
 @Preview(showBackground = true)
 @Composable
 private fun TaskCardPreview() {
-    StudyFlowTheme { TaskCard(task = sampleTasks[0], onClick = {}) }
+    DeadlinerTheme { TaskCard(task = sampleTasks[0], onClick = {}) }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun TaskCardDarkPreview() {
-    StudyFlowTheme { TaskCard(task = sampleTasks[11], onClick = {}) }
+    DeadlinerTheme { TaskCard(task = sampleTasks[11], onClick = {}) }
 }

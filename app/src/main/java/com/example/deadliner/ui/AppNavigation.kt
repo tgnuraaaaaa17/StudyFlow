@@ -1,4 +1,4 @@
-package com.example.studyflow.ui
+package com.example.deadliner.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -8,13 +8,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.studyflow.data.Task
-import com.example.studyflow.data.sampleSubjects
-import com.example.studyflow.data.sampleTasks
-import com.example.studyflow.ui.screens.AddTaskScreen
-import com.example.studyflow.ui.screens.HomeScreen
-import com.example.studyflow.ui.screens.TaskDetailScreen
-import com.example.studyflow.ui.screens.TaskListScreen
+import com.example.deadliner.data.Task
+import com.example.deadliner.data.sampleSubjects
+import com.example.deadliner.data.sampleTasks
+import com.example.deadliner.ui.screens.AddTaskScreen
+import com.example.deadliner.ui.screens.HomeScreen
+import com.example.deadliner.ui.screens.TaskDetailScreen
+import com.example.deadliner.ui.screens.TaskListScreen
 
 @Composable
 fun AppNavigation() {

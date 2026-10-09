@@ -1,4 +1,4 @@
-package com.example.studyflow
+package com.example.deadliner
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,17 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.studyflow.data.sampleTasks
-import com.example.studyflow.ui.AppNavigation
-import com.example.studyflow.ui.screens.HomeScreen
-import com.example.studyflow.ui.theme.StudyFlowTheme
+import com.example.deadliner.data.sampleTasks
+import com.example.deadliner.ui.AppNavigation
+import com.example.deadliner.ui.screens.HomeScreen
+import com.example.deadliner.ui.theme.DeadlinerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            StudyFlowTheme {
+            DeadlinerTheme {
                 AppNavigation()            }
         }
     }

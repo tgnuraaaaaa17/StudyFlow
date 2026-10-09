@@ -1,4 +1,4 @@
-package com.example.studyflow.ui.theme
+package com.example.deadliner.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -255,7 +255,7 @@ val unspecified_scheme = ColorFamily(
 )
 
 @Composable
-fun StudyFlowTheme(
+fun DeadlinerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,

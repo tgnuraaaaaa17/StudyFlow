@@ -1,4 +1,4 @@
-package com.example.studyflow.data
+package com.example.deadliner.data
 
 data class Task(
     val id: Int,

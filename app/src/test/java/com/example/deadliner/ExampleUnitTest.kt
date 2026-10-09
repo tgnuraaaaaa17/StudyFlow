@@ -1,4 +1,4 @@
-package com.example.studyflow
+package com.example.deadliner
 
 import org.junit.Test
 

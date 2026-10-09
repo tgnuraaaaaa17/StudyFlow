@@ -1,4 +1,4 @@
-package com.example.studyflow.ui.screens
+package com.example.deadliner.ui.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -23,10 +23,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.studyflow.data.sampleSubjects
-import com.example.studyflow.ui.components.SubjectChip
-import com.example.studyflow.ui.theme.Spacing
-import com.example.studyflow.ui.theme.StudyFlowTheme
+import com.example.deadliner.data.sampleSubjects
+import com.example.deadliner.ui.components.SubjectChip
+import com.example.deadliner.ui.theme.Spacing
+import com.example.deadliner.ui.theme.DeadlinerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,11 +90,11 @@ fun AddTaskScreen(
 @Preview(showBackground = true)
 @Composable
 private fun AddTaskScreenPreview() {
-    StudyFlowTheme { AddTaskScreen(sampleSubjects, onBack = {}, onSave = { _, _, _ -> }) }
+    DeadlinerTheme { AddTaskScreen(sampleSubjects, onBack = {}, onSave = { _, _, _ -> }) }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun AddTaskScreenDarkPreview() {
-    StudyFlowTheme { AddTaskScreen(sampleSubjects, onBack = {}, onSave = { _, _, _ -> }) }
+    DeadlinerTheme { AddTaskScreen(sampleSubjects, onBack = {}, onSave = { _, _, _ -> }) }
 }

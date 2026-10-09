@@ -1,4 +1,4 @@
-package com.example.studyflow.ui.theme
+package com.example.deadliner.ui.theme
 
 
 import androidx.compose.ui.unit.dp

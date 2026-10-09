@@ -1,4 +1,4 @@
-package com.example.studyflow.ui.screens
+package com.example.deadliner.ui.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -26,14 +26,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.studyflow.data.Task
-import com.example.studyflow.data.sampleSubjects
-import com.example.studyflow.data.sampleTasks
-import com.example.studyflow.ui.components.SectionHeader
-import com.example.studyflow.ui.components.SubjectChip
-import com.example.studyflow.ui.components.TaskCard
-import com.example.studyflow.ui.theme.Spacing
-import com.example.studyflow.ui.theme.StudyFlowTheme
+import com.example.deadliner.data.Task
+import com.example.deadliner.data.sampleSubjects
+import com.example.deadliner.data.sampleTasks
+import com.example.deadliner.ui.components.SectionHeader
+import com.example.deadliner.ui.components.SubjectChip
+import com.example.deadliner.ui.components.TaskCard
+import com.example.deadliner.ui.theme.Spacing
+import com.example.deadliner.ui.theme.DeadlinerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +52,7 @@ fun HomeScreen(
         modifier = modifier,
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("StudyFlow") },
+                title = { Text("Deadliner") },
                 actions = {
                     TextButton(
                         onClick = onSeeAllClick,
@@ -108,7 +108,7 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
-    StudyFlowTheme {
+    DeadlinerTheme {
         HomeScreen(tasks = sampleTasks, onTaskClick = {}, onAddClick = {}, onSeeAllClick = {})
     }
 }
@@ -116,7 +116,7 @@ private fun HomeScreenPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun HomeScreenDarkPreview() {
-    StudyFlowTheme {
+    DeadlinerTheme {
         HomeScreen(tasks = sampleTasks, onTaskClick = {}, onAddClick = {}, onSeeAllClick = {})
     }
 }

@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.studyflow"
+    namespace = "com.example.deadliner"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.studyflow"
+        applicationId = "com.example.deadliner"
         minSdk = 25
         targetSdk = 37
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.example.studyflow.ui.screens
+package com.example.deadliner.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -23,14 +23,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import com.example.studyflow.R
-import com.example.studyflow.data.Task
-import com.example.studyflow.ui.theme.Spacing
+import com.example.deadliner.R
+import com.example.deadliner.data.Task
+import com.example.deadliner.ui.theme.Spacing
 import android.content.res.Configuration
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.studyflow.data.sampleTasks
-import com.example.studyflow.ui.theme.StudyFlowTheme
+import com.example.deadliner.data.sampleTasks
+import com.example.deadliner.ui.theme.DeadlinerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +57,7 @@ fun TaskDetailScreen(
             verticalArrangement = Arrangement.spacedBy(Spacing.md)
         ) {
             Image(
-                painter = painterResource(R.drawable.studyflow_banner),
+                painter = painterResource(R.drawable.deadliner_banner),
                 contentDescription = "Illustration for ${task.title}",
                 modifier = Modifier.fillMaxWidth().aspectRatio(16f / 9f),
                 contentScale = ContentScale.Crop
@@ -92,11 +92,11 @@ fun TaskDetailScreen(
 @Preview(showBackground = true)
 @Composable
 private fun TaskDetailScreenPreview() {
-    StudyFlowTheme { TaskDetailScreen(task = sampleTasks[0], onBack = {}) }
+    DeadlinerTheme { TaskDetailScreen(task = sampleTasks[0], onBack = {}) }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun TaskDetailScreenDarkPreview() {
-    StudyFlowTheme { TaskDetailScreen(task = sampleTasks[0], onBack = {}) }
+    DeadlinerTheme { TaskDetailScreen(task = sampleTasks[0], onBack = {}) }
 }

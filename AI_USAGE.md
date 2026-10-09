@@ -9,21 +9,16 @@ I used Claude only. I used it to:
 - help with Git problems and with build errors in Android Studio.
 
 ## My 3 most useful prompts
-1. (with a screenshot of the running Home screen) "но не нажимается"
-   The task cards did nothing when tapped. The answer explained that `onTaskClick = {}` was an empty
-   placeholder and gave me Navigation Compose, the `TaskDetailScreen`, and the route `detail/{taskId}`.
-   This is how the task `id` reaches the detail screen as a navigation argument, and the screen finds
-   the task with `tasks.find { it.id == taskId }`.
-2. "+ плюс не работает не реагирует"
-   The "+" button was also an empty placeholder because the Add Task screen did not exist yet. I got
-   `AddTaskScreen` (two text fields, subject chips, a Save button that is enabled only when the form is
-   filled) and a task list in `AppNavigation` that survives navigation, so a new task appears on Home
-   after Save. The form uses `remember` + `mutableStateOf`.
-3. "почему когда я нажимаю алл сразу входить из приложение"
-   The app crashed when I pressed "All" on the Home screen. The cause was a missing `"list"` route in
-   `NavHost`: navigation could not find the destination. I got the complete `AppNavigation` with all
-   four routes (`home`, `list`, `detail/{taskId}`, `add`) and the `TaskListScreen`.
-   
+1.(with the SIS3 and Deadliner PDFs attached)
+"Негізі не істеу керек? Типа UI дизайнын істесем болды ма?"
+This told me I only need the UI part of Deadliner, with hardcoded data, and showed what is mandatory.
+
+2."У меня сейчас нету бумаги, можно на сайт нарисовать? И дай примерные эскизы на мой проект."
+I got a labeled example sketch of my 4 screens and a tool (Excalidraw) to draw my own.
+
+3."Это как тебе?" (sent several times together with a screenshot of my sketch)
+Each time I got a short review: what is correct and what must be fixed (for example, the "+" drawn in the top bar but labeled FAB, and 3 rows of chips labeled LazyRow).
+
 ## One case where the AI was wrong
 The AI gave me `TaskCard` code that used `Icons.Filled.CheckCircle`, but it did not say that the
 material-icons library has to be added to the project. The build failed with
