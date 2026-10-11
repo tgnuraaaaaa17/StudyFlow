@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -71,11 +72,13 @@ fun AddTaskScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Text("Subject", style = MaterialTheme.typography.titleMedium)
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(Spacing.lg
+            )) {
                 items(subjects) { s ->
                     SubjectChip(label = s, selected = s == subject, onClick = { subject = s })
                 }
             }
+            LazyColumn()  { }
             Button(
                 onClick = { subject?.let { onSave(title, it, deadline) } },
                 enabled = canSave,
@@ -83,6 +86,7 @@ fun AddTaskScreen(
             ) {
                 Text("Save")
             }
+
         }
     }
 }

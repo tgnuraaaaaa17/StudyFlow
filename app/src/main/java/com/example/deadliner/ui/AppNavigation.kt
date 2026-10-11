@@ -21,7 +21,7 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val tasks = remember { mutableStateListOf<Task>().apply { addAll(sampleTasks) } }
 
-    NavHost(navController = navController, startDestination = "home") {
+    NavHost(navController = navController, startDestination = "addtask") {
         composable("home") {
             HomeScreen(
                 tasks = tasks,
