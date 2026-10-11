@@ -4,7 +4,7 @@ import kotlinx.coroutines.delay
 import java.io.IOException
 
 class TaskRepository(
-    private var shouldFail: Boolean = false
+    private var shouldFail: Boolean = true
 ) {
     private val tasks = sampleTasks.toMutableList()
 
