@@ -6,7 +6,9 @@ data class Task(
     val subject: String,
     val deadline: String,
     val description: String,
-    val isCompleted: Boolean = false
+    val isCompleted: Boolean = false,
+    val isFavourite: Boolean = false
+
 )
 
 val sampleSubjects = listOf("Math", "History", "ML", "CSS", "Linux", "API", "Kazakh language")
