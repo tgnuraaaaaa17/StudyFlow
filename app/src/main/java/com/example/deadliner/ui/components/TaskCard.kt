@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,24 +19,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.deadliner.data.Task
 import com.example.deadliner.data.sampleTasks
-import com.example.deadliner.ui.theme.Spacing
 import com.example.deadliner.ui.theme.DeadlinerTheme
+import com.example.deadliner.ui.theme.Spacing
 
 @Composable
 fun TaskCard(
     task: Task,
     onClick: () -> Unit,
+    onFavouriteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(onClick = onClick, modifier = modifier.fillMaxWidth()) {
         Row(
-            modifier = Modifier.padding(Spacing.md),
+            modifier = Modifier.padding(horizontal = Spacing.md, vertical = Spacing.sm),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Checkbox(
-                checked = task.isCompleted,
-                onCheckedChange = null
-            )
+            Checkbox(checked = task.isCompleted, onCheckedChange = null)
             Spacer(Modifier.width(Spacing.md))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -50,6 +49,12 @@ fun TaskCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
+            IconButton(onClick = onFavouriteClick) {
+                Text(
+                    text = if (task.isFavourite) "★" else "☆",
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            }
         }
     }
 }
@@ -57,11 +62,13 @@ fun TaskCard(
 @Preview(showBackground = true)
 @Composable
 private fun TaskCardPreview() {
-    DeadlinerTheme { TaskCard(task = sampleTasks[0], onClick = {}) }
+    DeadlinerTheme { TaskCard(task = sampleTasks[0], onClick = {}, onFavouriteClick = {}) }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun TaskCardDarkPreview() {
-    DeadlinerTheme { TaskCard(task = sampleTasks[11], onClick = {}) }
+    DeadlinerTheme {
+        TaskCard(task = sampleTasks[11].copy(isFavourite = true), onClick = {}, onFavouriteClick = {})
+    }
 }

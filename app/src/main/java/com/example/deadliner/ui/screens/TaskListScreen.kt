@@ -16,21 +16,40 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.deadliner.data.Task
 import com.example.deadliner.data.sampleTasks
+import com.example.deadliner.ui.TasksViewModel
 import com.example.deadliner.ui.components.SectionHeader
 import com.example.deadliner.ui.components.TaskCard
-import com.example.deadliner.ui.theme.Spacing
 import com.example.deadliner.ui.theme.DeadlinerTheme
+import com.example.deadliner.ui.theme.Spacing
+
+@Composable
+fun TaskListRoute(
+    viewModel: TasksViewModel,
+    onTaskClick: (Int) -> Unit,
+    onBack: () -> Unit
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    TaskListScreen(
+        tasks = uiState.allTasks,
+        onTaskClick = onTaskClick,
+        onFavouriteClick = viewModel::onFavouriteClick,
+        onBack = onBack
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskListScreen(
     tasks: List<Task>,
     onTaskClick: (Int) -> Unit,
+    onFavouriteClick: (Int) -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -59,7 +78,11 @@ fun TaskListScreen(
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
                     items(tasks, key = { it.id }) { task ->
-                        TaskCard(task = task, onClick = { onTaskClick(task.id) })
+                        TaskCard(
+                            task = task,
+                            onClick = { onTaskClick(task.id) },
+                            onFavouriteClick = { onFavouriteClick(task.id) }
+                        )
                     }
                 }
             }
@@ -70,11 +93,11 @@ fun TaskListScreen(
 @Preview(showBackground = true)
 @Composable
 private fun TaskListScreenPreview() {
-    DeadlinerTheme { TaskListScreen(sampleTasks, onTaskClick = {}, onBack = {}) }
+    DeadlinerTheme { TaskListScreen(sampleTasks, onTaskClick = {}, onFavouriteClick = {}, onBack = {}) }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun TaskListScreenDarkPreview() {
-    DeadlinerTheme { TaskListScreen(sampleTasks, onTaskClick = {}, onBack = {}) }
+    DeadlinerTheme { TaskListScreen(sampleTasks, onTaskClick = {}, onFavouriteClick = {}, onBack = {}) }
 }

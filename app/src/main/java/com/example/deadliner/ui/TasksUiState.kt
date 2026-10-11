@@ -21,5 +21,3 @@ data class TasksUiState(
     val selectedSubject: String? = null,
     val draft: TaskDraft = TaskDraft()
 )
-)
-)

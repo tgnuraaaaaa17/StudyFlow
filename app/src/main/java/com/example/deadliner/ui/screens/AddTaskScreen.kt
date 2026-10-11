@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -19,37 +18,54 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.deadliner.data.sampleSubjects
+import com.example.deadliner.ui.TaskDraft
+import com.example.deadliner.ui.TasksViewModel
 import com.example.deadliner.ui.components.SubjectChip
-import com.example.deadliner.ui.theme.Spacing
 import com.example.deadliner.ui.theme.DeadlinerTheme
+import com.example.deadliner.ui.theme.Spacing
+
+@Composable
+fun AddTaskRoute(
+    viewModel: TasksViewModel,
+    onBack: () -> Unit
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    AddTaskScreen(
+        subjects = uiState.subjects,
+        draft = uiState.draft,
+        onTitleChange = viewModel::onDraftTitleChange,
+        onDeadlineChange = viewModel::onDraftDeadlineChange,
+        onSubjectSelected = viewModel::onDraftSubjectSelected,
+        onSave = {
+            viewModel.onSaveTask()
+            onBack()
+        },
+        onBack = onBack
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTaskScreen(
     subjects: List<String>,
+    draft: TaskDraft,
+    onTitleChange: (String) -> Unit,
+    onDeadlineChange: (String) -> Unit,
+    onSubjectSelected: (String) -> Unit,
+    onSave: () -> Unit,
     onBack: () -> Unit,
-    onSave: (title: String, subject: String, deadline: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var title by remember { mutableStateOf("") }
-    var deadline by remember { mutableStateOf("") }
-    var subject by remember { mutableStateOf<String?>(null) }
-    val canSave = title.isNotBlank() && deadline.isNotBlank() && subject != null
-
     Scaffold(
         modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text("Add task") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) { Text("←") }
-                }
+                navigationIcon = { IconButton(onClick = onBack) { Text("←") } }
             )
         }
     ) { padding ->
@@ -58,35 +74,36 @@ fun AddTaskScreen(
             verticalArrangement = Arrangement.spacedBy(Spacing.md)
         ) {
             OutlinedTextField(
-                value = title,
-                onValueChange = { title = it },
+                value = draft.title,
+                onValueChange = onTitleChange,
                 label = { Text("Task") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
-                value = deadline,
-                onValueChange = { deadline = it },
+                value = draft.deadline,
+                onValueChange = onDeadlineChange,
                 label = { Text("Deadline (e.g. 10 Oct)") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
             Text("Subject", style = MaterialTheme.typography.titleMedium)
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(Spacing.lg
-            )) {
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
                 items(subjects) { s ->
-                    SubjectChip(label = s, selected = s == subject, onClick = { subject = s })
+                    SubjectChip(
+                        label = s,
+                        selected = s == draft.subject,
+                        onClick = { onSubjectSelected(s) }
+                    )
                 }
             }
-            LazyColumn()  { }
             Button(
-                onClick = { subject?.let { onSave(title, it, deadline) } },
-                enabled = canSave,
+                onClick = onSave,
+                enabled = draft.canSave,
                 modifier = Modifier.fillMaxWidth().heightIn(min = Spacing.touchTarget)
             ) {
                 Text("Save")
             }
-
         }
     }
 }
@@ -94,11 +111,15 @@ fun AddTaskScreen(
 @Preview(showBackground = true)
 @Composable
 private fun AddTaskScreenPreview() {
-    DeadlinerTheme { AddTaskScreen(sampleSubjects, onBack = {}, onSave = { _, _, _ -> }) }
+    DeadlinerTheme {
+        AddTaskScreen(sampleSubjects, TaskDraft(), {}, {}, {}, {}, {})
+    }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun AddTaskScreenDarkPreview() {
-    DeadlinerTheme { AddTaskScreen(sampleSubjects, onBack = {}, onSave = { _, _, _ -> }) }
+    DeadlinerTheme {
+        AddTaskScreen(sampleSubjects, TaskDraft("Essay", "10 Oct", "Math"), {}, {}, {}, {}, {})
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.deadliner.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,38 +18,50 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.deadliner.R
 import com.example.deadliner.data.Task
-import com.example.deadliner.ui.theme.Spacing
-import android.content.res.Configuration
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.deadliner.data.sampleTasks
+import com.example.deadliner.ui.TasksViewModel
 import com.example.deadliner.ui.theme.DeadlinerTheme
+import com.example.deadliner.ui.theme.Spacing
+
+@Composable
+fun TaskDetailRoute(
+    taskId: Int?,
+    viewModel: TasksViewModel,
+    onBack: () -> Unit
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val task = uiState.allTasks.firstOrNull { it.id == taskId }
+    if (task != null) {
+        TaskDetailScreen(
+            task = task,
+            onToggleCompleted = { viewModel.onToggleCompleted(task.id) },
+            onBack = onBack
+        )
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskDetailScreen(
     task: Task,
+    onToggleCompleted: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var completed by remember { mutableStateOf(task.isCompleted) }
-
     Scaffold(
         modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text("Task details") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) { Text("←") }
-                }
+                navigationIcon = { IconButton(onClick = onBack) { Text("←") } }
             )
         }
     ) { padding ->
@@ -80,23 +93,25 @@ fun TaskDetailScreen(
                 overflow = TextOverflow.Ellipsis
             )
             Button(
-                onClick = { completed = !completed },
+                onClick = onToggleCompleted,
                 modifier = Modifier.fillMaxWidth().heightIn(min = Spacing.touchTarget)
             ) {
-                Text(if (completed) "Completed ✓ (tap to undo)" else "Mark as completed")
+                Text(if (task.isCompleted) "Completed ✓ (tap to undo)" else "Mark as completed")
             }
         }
     }
-
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun TaskDetailScreenPreview() {
-    DeadlinerTheme { TaskDetailScreen(task = sampleTasks[0], onBack = {}) }
+    DeadlinerTheme { TaskDetailScreen(task = sampleTasks[0], onToggleCompleted = {}, onBack = {}) }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun TaskDetailScreenDarkPreview() {
-    DeadlinerTheme { TaskDetailScreen(task = sampleTasks[0], onBack = {}) }
+    DeadlinerTheme {
+        TaskDetailScreen(task = sampleTasks[0].copy(isCompleted = true), onToggleCompleted = {}, onBack = {})
+    }
 }

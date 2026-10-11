@@ -1,38 +1,34 @@
 package com.example.deadliner.ui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.deadliner.data.Task
-import com.example.deadliner.data.sampleSubjects
-import com.example.deadliner.data.sampleTasks
-import com.example.deadliner.ui.screens.AddTaskScreen
-import com.example.deadliner.ui.screens.HomeScreen
-import com.example.deadliner.ui.screens.TaskDetailScreen
-import com.example.deadliner.ui.screens.TaskListScreen
+import com.example.deadliner.ui.screens.AddTaskRoute
+import com.example.deadliner.ui.screens.HomeRoute
+import com.example.deadliner.ui.screens.TaskDetailRoute
+import com.example.deadliner.ui.screens.TaskListRoute
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-    val tasks = remember { mutableStateListOf<Task>().apply { addAll(sampleTasks) } }
+    val viewModel: TasksViewModel = viewModel()
 
-    NavHost(navController = navController, startDestination = "addtask") {
+    NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            HomeScreen(
-                tasks = tasks,
+            HomeRoute(
+                viewModel = viewModel,
                 onTaskClick = { id -> navController.navigate("detail/$id") },
                 onAddClick = { navController.navigate("add") },
                 onSeeAllClick = { navController.navigate("list") }
             )
         }
         composable("list") {
-            TaskListScreen(
-                tasks = tasks,
+            TaskListRoute(
+                viewModel = viewModel,
                 onTaskClick = { id -> navController.navigate("detail/$id") },
                 onBack = { navController.popBackStack() }
             )
@@ -41,21 +37,16 @@ fun AppNavigation() {
             route = "detail/{taskId}",
             arguments = listOf(navArgument("taskId") { type = NavType.IntType })
         ) { entry ->
-            val taskId = entry.arguments?.getInt("taskId")
-            val task = tasks.find { it.id == taskId }
-            if (task != null) {
-                TaskDetailScreen(task = task, onBack = { navController.popBackStack() })
-            }
+            TaskDetailRoute(
+                taskId = entry.arguments?.getInt("taskId"),
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() }
+            )
         }
         composable("add") {
-            AddTaskScreen(
-                subjects = sampleSubjects,
-                onBack = { navController.popBackStack() },
-                onSave = { title, subject, deadline ->
-                    val newId = (tasks.maxOfOrNull { it.id } ?: 0) + 1
-                    tasks.add(Task(newId, title, subject, deadline, "No description yet."))
-                    navController.popBackStack()
-                }
+            AddTaskRoute(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() }
             )
         }
     }
